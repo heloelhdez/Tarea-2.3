@@ -6,7 +6,8 @@
 
 /**
  *
- * @author heloe
+ * @author Heloel Hernandez Santos A07007415
+ * @author Jose Pablo Ortiz Lack A01099655
  */
 import java.util.Scanner;
 public class Main {
@@ -77,7 +78,6 @@ public class Main {
                 for (int k = 0; k < A.length; k++)
                 {
                     temporal[i][j] = sumaFraccion(temporal[i][j], multiplicaFraccion(A[i][k], B[k][j]));
-                    //c[i][j] = c[i][j] + numerador[i][k] * denominador[k][j];
                 }
             }
         }
