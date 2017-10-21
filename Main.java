@@ -19,7 +19,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         int n = Integer.parseInt(input.nextLine());
-        System.out.println("n = "+n);
+        //System.out.println("n = "+n);
         A = new Fraccion[n][n];
         B = new Fraccion[n][n];
         for (int i = 0; i < n; i++) {
@@ -29,7 +29,7 @@ public class Main {
         }
         
         int k = Integer.parseInt(input.nextLine());
-        System.out.println("k = "+k);
+        //System.out.println("k = "+k);
         System.out.println("P1");
         imprimeMatriz(A);
         B=A;
