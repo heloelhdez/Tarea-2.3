@@ -127,7 +127,7 @@ public class Main {
             
             for (int j = 0; j < longitud; j++) {
                 if(i == j) {
-                    temporal[i][j] = new Fraccion(1,1);
+                    temporal[i][j] = new Fraccion(-1,1);
                 }
                 else {
                     temporal[i][j] = new Fraccion(0,1);
