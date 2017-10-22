@@ -64,6 +64,9 @@ public class Main {
             }
             G[i][n] = new Fraccion(0,1);
         }
+
+        //Paso 4: Resolvemos por Gauss-Jordan la Matriz
+        imprimeFraccion(divideFraccion(new Fraccion(2,4), new Fraccion(1,3)));
         /*Fraccion sumada = sumaFraccion(A[0][0], A[1][1]);
         imprimeFraccion(sumada);*/
         
@@ -181,7 +184,6 @@ public class Main {
         temporal.setNumerador((uno.getNumerador()*dos.getDenominador())+(dos.getNumerador()*uno.getDenominador())); 
         temporal.setDenominador(uno.getDenominador()*dos.getDenominador());
         if(temporal.getDenominador() < 0) { //Si el denominador resulta ser negativo
-            System.out.println("NEGATIVO");
             temporal.setNumerador(temporal.getNumerador() * (-1)); //Hacemos que el numerador sea negativo por legibilidad
             temporal.setDenominador(temporal.getDenominador() * (-1));
         }
@@ -196,18 +198,26 @@ public class Main {
 
         return temporal;
     }
+
+    public static Fraccion divideFraccion(Fraccion uno, Fraccion dos) {
+        
+        Fraccion temporal = new Fraccion(0,1);
+        
+        temporal.setNumerador(uno.getNumerador() * dos.getDenominador());
+        temporal.setDenominador(uno.getDenominador() * dos.getNumerador());
+        Fraccion resultado = simplifica(temporal);
+        return resultado;
+    }
     
     public static int MCD(int numerador, int denominador) {
-        
+        //Asegurarnos que el procedimiento se corra con puros numeros positivos
         return denominador == 0 ? numerador : MCD(denominador, numerador % denominador);
     }
 
     public static Fraccion simplifica(Fraccion uno) {
         
-        long MCD = MCD(uno.getNumerador(), uno.getDenominador());
+        long MCD = MCD(Math.abs(uno.getNumerador()), Math.abs(uno.getDenominador())); //Asegurarnos que el MCD se corra con puros numeros positivos
         return new Fraccion((int)(uno.getNumerador()/MCD),(int)(uno.getDenominador()/MCD));
     }
-
-
 
 }
