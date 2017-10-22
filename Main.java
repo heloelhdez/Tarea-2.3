@@ -64,9 +64,6 @@ public class Main {
             }
             G[i][n] = new Fraccion(0,1);
         }
-
-        //Paso 4: Resolvemos por Gauss-Jordan la Matriz
-        imprimeFraccion(divideFraccion(new Fraccion(2,4), new Fraccion(1,3)));
         /*Fraccion sumada = sumaFraccion(A[0][0], A[1][1]);
         imprimeFraccion(sumada);*/
         
@@ -210,7 +207,7 @@ public class Main {
     }
     
     public static int MCD(int numerador, int denominador) {
-        //Asegurarnos que el procedimiento se corra con puros numeros positivos
+        
         return denominador == 0 ? numerador : MCD(denominador, numerador % denominador);
     }
 
