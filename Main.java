@@ -26,12 +26,14 @@ public class Main {
         //System.out.println("k = "+k);
         System.out.println("P1");
         imprimeMatriz(A);
+        System.out.println();
         B=A;
         for (int i = 2; i <= k; i++) {
             
             System.out.println("P"+i);
             B = multiplicaMatriz(A,B);
             imprimeMatriz(simplificaMatriz(B));
+            System.out.println();
         }
         
         /*Fraccion sumada = sumaFraccion(A[0][0], A[1][1]);
@@ -89,6 +91,20 @@ public class Main {
         return temporal;
     }
 
+    public static Fraccion[][] sumaMatriz(Fraccion[][] A, Fraccion[][] B){
+        
+        Fraccion[][] temporal = matrizDeCeros(A.length);
+        for (int i = 0; i < A.length; i++)
+        {
+            
+            for (int j = 0; j < A.length; j++)
+            {
+                temporal[i][j] = sumaFraccion(A[i][j], B[i][j]);
+            }
+        }
+        return temporal;
+    }
+
     public static Fraccion[][] matrizIdentidad(int longitud){
         
         Fraccion[][] temporal = new Fraccion[longitud][longitud];
@@ -134,5 +150,7 @@ public class Main {
         long MCD = MCD(uno.getNumerador(), uno.getDenominador());
         return new Fraccion((int)(uno.getNumerador()/MCD),(int)(uno.getDenominador()/MCD));
     }
+
+
 
 }
