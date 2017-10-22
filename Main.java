@@ -9,13 +9,16 @@ public class Main {
     public static Fraccion[][] A;
     public static Fraccion[][] B;
     public static Fraccion[][] C;
+    public static Fraccion[][] Identidad;
+    public static Fraccion[][] G;
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         int n = Integer.parseInt(input.nextLine());
         //System.out.println("n = "+n);
         A = new Fraccion[n][n];
         B = new Fraccion[n][n];
-        C = new Fraccion[n][n];
+        Identidad = matrizIdentidad(n);
+
         for (int i = 0; i < n; i++) {
             
             for (int j = 0; j < n; j++) {
@@ -30,7 +33,7 @@ public class Main {
         imprimeMatriz(A);
         System.out.println();
         B=A;
-
+        System.out.println();
         for (int i = 2; i <= k; i++) {
             
             System.out.println("P"+i);
@@ -39,6 +42,28 @@ public class Main {
             System.out.println();
         }
         
+        //Calculo del vector de punto fijo
+
+        //Paso 1: Le restamos la matriz identidad a la matriz de transicion
+        C = sumaMatriz(A, Identidad);
+        
+        //Paso 2: Transponemos la matriz
+        C = transponerMatriz(C);
+        
+        //Paso 3: Transferimos la matriz transpuesta a una nueva matriz para resolver por Gauss-Jordan
+        G = matrizDeCeros(n+1); //Matriz nueva donde resolveremos por Gauss-Jordan
+        
+        //La primera fila de la matriz de resolucion se llena de unos (dado que x+y+z+w+...+n = 1)
+        for(int i = 0; i < n+1; i++) {
+            G[0][i] = new Fraccion(1,1);
+        }
+        //Transferimos matriz transpuesta a matriz de resolucion
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < n; j++) {
+                G[i+1][j] = C[i][j];
+            }
+            G[i][n] = new Fraccion(0,1);
+        }
         /*Fraccion sumada = sumaFraccion(A[0][0], A[1][1]);
         imprimeFraccion(sumada);*/
         
@@ -151,8 +176,25 @@ public class Main {
     }
 
     public static Fraccion sumaFraccion(Fraccion uno, Fraccion dos) {
+        Fraccion temporal = new Fraccion(0,1);
         
-        return new Fraccion((uno.getNumerador()*dos.getDenominador())+(dos.getNumerador()*uno.getDenominador()), uno.getDenominador()*dos.getDenominador());
+        temporal.setNumerador((uno.getNumerador()*dos.getDenominador())+(dos.getNumerador()*uno.getDenominador())); 
+        temporal.setDenominador(uno.getDenominador()*dos.getDenominador());
+        if(temporal.getDenominador() < 0) { //Si el denominador resulta ser negativo
+            System.out.println("NEGATIVO");
+            temporal.setNumerador(temporal.getNumerador() * (-1)); //Hacemos que el numerador sea negativo por legibilidad
+            temporal.setDenominador(temporal.getDenominador() * (-1));
+        }
+        if(temporal.getNumerador() < 0) {//Si el numerador es negativo...
+
+            if(temporal.getDenominador() < 0 ) { //Y el denominador tambien...
+                
+                temporal.setNumerador(temporal.getNumerador() * (-1)); //La fraccion es positiva, por lo que multiplicamos ambos por -1
+                temporal.setDenominador(temporal.getDenominador() * (-1));
+            }
+        }
+
+        return temporal;
     }
     
     public static int MCD(int numerador, int denominador) {
