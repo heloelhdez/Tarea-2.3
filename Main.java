@@ -8,12 +8,14 @@ public class Main {
 
     public static Fraccion[][] A;
     public static Fraccion[][] B;
+    public static Fraccion[][] C;
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         int n = Integer.parseInt(input.nextLine());
         //System.out.println("n = "+n);
         A = new Fraccion[n][n];
         B = new Fraccion[n][n];
+        C = new Fraccion[n][n];
         for (int i = 0; i < n; i++) {
             
             for (int j = 0; j < n; j++) {
@@ -28,6 +30,7 @@ public class Main {
         imprimeMatriz(A);
         System.out.println();
         B=A;
+
         for (int i = 2; i <= k; i++) {
             
             System.out.println("P"+i);
@@ -48,7 +51,9 @@ public class Main {
 
     public static void imprimeMatriz(Fraccion[][] A){
         for (int i = 0; i < A.length; i++) {
+            
             for (int j = 0; j < A.length; j++) {
+                
                 imprimeFraccion(A[i][j]);
             }
             System.out.println("");
@@ -73,17 +78,15 @@ public class Main {
         System.out.print(" "+uno.getNumerador()+"/"+uno.getDenominador()+" ");
     }
     
-    public static Fraccion[][] multiplicaMatriz(Fraccion[][] A, Fraccion[][] B){
+    public static Fraccion[][] multiplicaMatriz(Fraccion[][] A, Fraccion[][] B) {
         
         Fraccion[][] temporal = matrizDeCeros(A.length);
-        for (int i = 0; i < A.length; i++)
-        {
+        for (int i = 0; i < A.length; i++) {
             
-            for (int j = 0; j < A.length; j++)
-            {
+            for (int j = 0; j < A.length; j++) {
                 
-                for (int k = 0; k < A.length; k++)
-                {
+                for (int k = 0; k < A.length; k++) {
+                    
                     temporal[i][j] = sumaFraccion(temporal[i][j], multiplicaFraccion(A[i][k], B[k][j]));
                 }
             }
@@ -94,12 +97,24 @@ public class Main {
     public static Fraccion[][] sumaMatriz(Fraccion[][] A, Fraccion[][] B){
         
         Fraccion[][] temporal = matrizDeCeros(A.length);
-        for (int i = 0; i < A.length; i++)
-        {
+        for (int i = 0; i < A.length; i++) {
             
-            for (int j = 0; j < A.length; j++)
-            {
+            for (int j = 0; j < A.length; j++) {
+                
                 temporal[i][j] = sumaFraccion(A[i][j], B[i][j]);
+            }
+        }
+        return temporal;
+    }
+
+    public static Fraccion[][] transponerMatriz(Fraccion[][] A) {
+        
+        Fraccion[][] temporal = matrizDeCeros(A.length);
+        for (int i = 0; i < A.length; i++) {
+            
+            for (int j = 0; j < A.length; j++) {
+                
+                temporal[i][j] = A[j][i];
             }
         }
         return temporal;
@@ -122,7 +137,7 @@ public class Main {
         return temporal;
     }
 
-    public static Fraccion[][] matrizDeCeros(int longitud){
+    public static Fraccion[][] matrizDeCeros(int longitud) {
         
         Fraccion[][] temporal = new Fraccion[longitud][longitud];
         for (int i = 0; i < longitud; i++) {
@@ -135,7 +150,7 @@ public class Main {
         return temporal;
     }
 
-    public static Fraccion sumaFraccion(Fraccion uno, Fraccion dos){
+    public static Fraccion sumaFraccion(Fraccion uno, Fraccion dos) {
         
         return new Fraccion((uno.getNumerador()*dos.getDenominador())+(dos.getNumerador()*uno.getDenominador()), uno.getDenominador()*dos.getDenominador());
     }
